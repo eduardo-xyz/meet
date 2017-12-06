@@ -1,0 +1,16 @@
+{
+  "name": "limit-enrollment",
+  "description": "Limit the amount of users that can enroll a course",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.3"
+  },
+  "private": true
+}

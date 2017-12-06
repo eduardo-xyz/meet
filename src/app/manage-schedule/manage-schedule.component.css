@@ -1,0 +1,26 @@
+:host /deep/ .nav-tabs > li.active > a,
+:host /deep/ .nav-tabs > li.active > a:focus,
+:host /deep/ .nav-tabs > li.active > a:hover{
+    color : white;
+    background-color: #337AB7;
+    border-radius: 0;
+}
+
+:host /deep/ .tabset-content {
+    color : white;
+    background-color: #337AB7;
+    padding : 5px 15px;
+}
+
+.thumbnail {    
+    display: inline-block;
+}
+
+.thumbnail img{
+    max-width: 100px;
+}
+
+a {
+    color: white;
+    text-decoration: underline;
+}

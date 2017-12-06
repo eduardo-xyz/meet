@@ -1,6 +1,6 @@
 import {Injectable, Inject} from "@angular/core";
 import {User} from "firebase";
-import {AngularFireAuth, AuthProviders, AuthMethods, AngularFire, FirebaseApp} from "angularfire2";
+import {AngularFireAuth, AuthProviders, AuthMethods, AngularFire, FirebaseApp, FirebaseObjectObservable} from "angularfire2";
 import {UserInfo} from "./user-info";
 import {Observable, Subject, ReplaySubject, AsyncSubject} from "rxjs";
 import Auth = firebase.auth.Auth;
@@ -11,16 +11,15 @@ export class AuthService {
     private auth: User;
     private firebaseAuth: Auth;
 
-    constructor(private angularFireAuth: AngularFireAuth, @Inject(FirebaseApp) firebaseApp: any) {
+    constructor(private angularFireAuth: AngularFireAuth, @Inject(FirebaseApp) firebaseApp: any, angularFire: AngularFire) {
         this.initUserInfoSubject();
         // console.log("AuthService");
-        this.firebaseAuth = firebaseApp.auth();
-
+        this.firebaseAuth = firebaseApp.auth();        
         angularFireAuth.subscribe(auth => {
             // console.log("auth: ", JSON.stringify(auth));
 
             let userInfo = new UserInfo();
-            if (auth != null) {
+            if (auth != null) {                
                 this.auth = auth.auth;
                 userInfo.isAnonymous = auth.auth.isAnonymous;
                 userInfo.email = auth.auth.email;
@@ -28,6 +27,7 @@ export class AuthService {
                 userInfo.providerId = auth.auth.providerId;
                 userInfo.photoURL = auth.auth.photoURL;
                 userInfo.uid = auth.auth.uid;
+                
             } else {
                 this.auth = null;
                 userInfo.isAnonymous = true;

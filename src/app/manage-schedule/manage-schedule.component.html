@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Select a day and session.</h2>  
+
+  <tabset>
+    <tab title="Información">
+      <p>Para más información, contactar a <a href="amalia.corrales@microsoft.com">amalia.corrales@microsoft.com</a></p>
+    </tab>
+    <tab *ngFor="let date of dates | async" title="{{ date.title }}">
+      <div *ngFor="let time of date.times | async">
+        <div class="row" *ngIf="time?.title?.length">
+          <div class="col-md-3">
+            {{ time?.title }}
+          </div>
+          <div class="col-md-9">
+            <div class="list-group">
+              <div *ngFor="let course of time.courses | async">
+                <button type="button" class="list-group-item" *ngIf="course?.title?.length" (click)="enroll(date, time, course)">
+                  Join {{course?.title}} <span class="badge">{{course?.enrollment_count}}/12</span>
+                </button>
+                <div class="thumbnail" *ngFor="let user of course.enrollment | async">
+                  <img src="{{user.photoURL}}" alt="{{user.displayName}}" *ngIf="user?.photoURL?.length">
+                  <div class="caption">
+                    <p>{{user.displayName}}</p>
+                    <p>{{user.email}}</p>
+                    <p *ngIf="(currentUser()|async).uid === user.uid">
+                      <a href="#" class="btn btn-primary" role="button" (click)="remove(date, time, course)">Remove</a>
+                    </p>
+                  </div>
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+
+  <br>
+  <br>
+</div>

@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    private title = 'app works! - Meet';
+    private title = 'Meet';
     private alertType = null;
     private alertMessage = "";
 
@@ -32,6 +32,25 @@ export class AppComponent {
     onRegisterSuccess() {
         this.alertType = "success";
         this.alertMessage = "User registered!";
+    }
+
+    onEnrolled(enrollment) {
+        this.alertType = "success";
+        this.alertMessage = `Successfully enrolled ${enrollment.course.title} on ${enrollment.date.title} at ${enrollment.time.title}`;
+        window.scrollTo(0, 0);
+    }
+
+    onEnrollFail(warn) {
+        this.alertType = "warning";
+        this.alertMessage = warn;
+        window.scrollTo(0, 0);
+        console.warn(warn);
+    }
+
+    onRemoved(enrollment) {
+        this.alertType = "success";
+        this.alertMessage = `Successfully removed ${enrollment.course.title} on ${enrollment.date.title} at ${enrollment.time.title}`;
+        window.scrollTo(0, 0);
     }
 
     onError(err) {
